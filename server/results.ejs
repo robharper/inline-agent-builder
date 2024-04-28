@@ -1,0 +1,16 @@
+<p>
+  <%- answer %>
+</p>
+<div class="vais-refs">
+  <% refs.forEach(function(result, idx) { %>
+    <div class="vais-ref">
+      <small class="vais-ref-link">[<%= idx %>] <%= result.link %></small>
+      <p class="vais-ref-title">
+        <a href="<%= result.link %>"><%= result.title %></a>
+      </p>
+      <p class="vais-ref-snippet">
+        <%- result.snippet %>
+      </p>
+    </div>
+  <% }); %>
+</ul>
