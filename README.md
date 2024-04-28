@@ -25,3 +25,9 @@ This is a **very** basic implementation with a ton of raw edges and missing capa
 2. Limited rendering of the results from the API (just a title, snippet, etc)
 3. No support for handling citations in Cloud Storage (e.g. creating signed urls to access the content)
 4. Fragile code handling the response - it'll probably break in many many cases
+
+## Work Remaining
+- Clean up
+- Add capability to filter via query param to endpoint
+- Add capability add additional search string content via query param to endpoint (e.g. via hidden input)
+- Docker + deploy via Cloud Run
