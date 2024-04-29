@@ -22,8 +22,15 @@ const searchFn = require('./search')({
 
 app.get('/search', (req, res) => {
   const query = req.query.q;
+  const filters = req.query.filters;
+  const context = req.query.context;
+
   if (query) {
-    searchFn(req.query.q).then(result => {
+    searchFn({
+      query,
+      context,
+      filters
+    }).then(result => {
       res.send(result);
     }).catch(e => {
       res.statusCode = 500;

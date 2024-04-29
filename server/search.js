@@ -85,12 +85,22 @@ module.exports = function(config) {
 
   /**
    * The search function to be returned
-   * @param {*} query
+   * @param {*} query The user query to submit
+   * @param {*} context (optional) Additional context to append to query (e.g. directive to LLM)
+   * @param {*} filter (optional) Filter string, e.g. 'siteSearch:"https://example.com/subset_path"'
    * @returns HTML text string
    */
-  const searchFunction = async function(query) {
+  const searchFunction = async function({
+    context,
+    query,
+    filters,
+  }) {
+    if (context) {
+      query += '\n' + context;
+    }
     const request = Object.assign({
         query,
+        filters,
         servingConfig: name,
       }, searchConfig
     );

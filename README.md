@@ -28,6 +28,5 @@ This is a **very** basic implementation with a ton of raw edges and missing capa
 
 ## Work Remaining
 - Clean up
-- Add capability to filter via query param to endpoint
-- Add capability add additional search string content via query param to endpoint (e.g. via hidden input)
+- Styling and use examples
 - Docker + deploy via Cloud Run
