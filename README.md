@@ -16,8 +16,15 @@ In short:
 3. Locally, run `npm run serve` and head to http://localhost:3000
 
 ### To deploy
+Build the image:
+```
+docker build -t provide-image-name:latest .
+```
 
-TODO
+Run the image locally:
+```
+docker run -it --rm -p 3000:3000 --name inline-agent-builder-example provide-image-name:latest
+```
 
 ## Limitations
 This is a **very** basic implementation with a ton of raw edges and missing capabilities. To name a few:
@@ -29,4 +36,4 @@ This is a **very** basic implementation with a ton of raw edges and missing capa
 ## Work Remaining
 - Clean up
 - Styling and use examples
-- Docker + deploy via Cloud Run
+- Docker auth + deploy via Cloud Run
