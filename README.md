@@ -13,18 +13,42 @@ This repo contains a very basic node.js server allowing a more immersive, contro
 In short:
 1. Replace or edit `public/index.html` to reflect the site to which you'd like to add search
 2. Create the `.env` file with contents similar to `sample.env`. It must contain a few key details and supports the customization of how search results are returned
-3. Locally, run `npm run serve` and head to http://localhost:3000
+3. Login to your GCP project via `gcloud auth application-default login`
+4. Locally, run `npm run serve` and head to http://localhost:3000
+
+### Endpoints
+
+#### `/search`
+ - Accepts the following query params:
+    - `q` the search query
+    - `filter` optional filter string
+    - `context` optional additional search context to append to the `q` string
+ - Can return `json` or `html` responses.
 
 ### To deploy
-Build the image:
-```
-docker build -t provide-image-name:latest .
+
+#### Local Docker
+Set the env var `GOOGLE_APPLICATION_CREDENTIALS` to the credentials file created on `gcloud auth application-default login` (usually somewhere in ~/.config/gcloud/...)
+
+Set `$REPO` to your artifact registry path, e.g. `$REGION-docker.pkg.dev/PROJECT_ID/REPO_NAME`
+
+```bash
+# Build
+docker build -t $REPO/$DEMO_NAME:latest .
+
+# Run
+docker run --rm -it -p 8080:8080 \
+-e GOOGLE_APPLICATION_CREDENTIALS=/tmp/keys/google_auth.json \
+-v $GOOGLE_APPLICATION_CREDENTIALS:/tmp/keys/google_auth.json:ro \
+$REPO/$DEMO_NAME:latest
 ```
 
-Run the image locally:
+#### Cloud Run
+
+```bash
+gcloud run deploy $DEMO_NAME --image $REPO/$DEMO_NAME:latest
 ```
-docker run -it --rm -p 3000:3000 --name inline-agent-builder-example provide-image-name:latest
-```
+
 
 ## Limitations
 This is a **very** basic implementation with a ton of raw edges and missing capabilities. To name a few:

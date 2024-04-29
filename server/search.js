@@ -16,7 +16,7 @@ const regex = /\[(\d+)\]/g;
  * @param results: Return value from client.search()[2]
  * @returns
  */
-const renderSearchResults = function(data) {
+const searchResultsToHtml = function(data) {
   // Map results to cleaner struct
   const refs = data.results?.map(r => {
     const refData = r.document?.derivedStructData?.fields;
@@ -53,7 +53,7 @@ const renderSearchResults = function(data) {
 /**
  * Creates and returns a search async function
  */
-module.exports = function(config) {
+const buildSearch = function(config) {
   const {
     projectId,                              // Project id, required
     dataStoreId,                            // Datastore id, required
@@ -115,8 +115,13 @@ module.exports = function(config) {
     const response = await client.search(request, {
       autoPaginate: false,
     });
-    return renderSearchResults(response[IResponseParams.ISearchResponse]);
+    return response[IResponseParams.ISearchResponse];
   };
 
   return searchFunction;
 };
+
+module.exports = {
+  buildSearch,
+  searchResultsToHtml
+}
